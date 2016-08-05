@@ -1,6 +1,6 @@
 angular.module('angular-bsn', [])
 
-/* Validates bsn number with the 11-proef */
+/* Validates bsn numbers with the 11-proef */
 .directive('bsn', [function() {
   return {
     restrict: 'A',
