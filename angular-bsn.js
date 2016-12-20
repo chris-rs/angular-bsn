@@ -11,32 +11,25 @@ angular.module('angular-bsn', [])
         var rest = viewValue;
         var sum = 0;
 
-        if(bsn <= 99999999 || bsn > 9999999999) {
-          console.log('invalid length');
-          $ngModelCtrl.$setValidity('bsn', false);
-        }else{
-          sum += (rest % 10) * -1;
-          rest = Math.floor(rest / 10);
-
-          for(var multiplier=2; rest > 0; multiplier++) {
-            sum += (rest % 10) * multiplier;
-            rest = Math.floor(rest / 10);
+        $ngModelCtrl.$setValidity('bsn', false);
+        if (bsn.length != 9) {
+          console.log('Invalid BSN: not 9 characters');
+        } else {
+          var sum = 0;
+          for (var i = 0; i < 8; i++) {
+            sum += (9 - i) * parseInt(bsn.charAt(i));
           }
+          sum -= parseInt(bsn.charAt(8));
 
-          if(sum % 11 === 0){
-            console.log('valid bsn');
+          if (((sum % 11) == 0)) {
             $ngModelCtrl.$setValidity('bsn', true);
-          }else{
-            console.log('invalid bsn');
-            $ngModelCtrl.$setValidity('bsn', false);
+          } else {
+            console.log('Invalid BSN: 11-proef is not valid');
           }
         }
 
         return viewValue;
-        
       });
     }
-  }
+  };
 }]);
-
-
